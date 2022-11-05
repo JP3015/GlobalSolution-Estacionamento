@@ -1,7 +1,9 @@
 package com.GS.models;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
 
 
 @Entity
@@ -21,12 +23,13 @@ public class Carro {
 	@Column (name="modelo_carro")
 	private String modeloCarro;
 
+
 	@NotNull
 	@Column (name="data_estacionamento")
 	private String dataEstacionamento;
 	
 	@ManyToOne
-	@JoinColumn(name="estacionamento")
+	@JoinColumn(name="ESTACIONAMENTO_CODIGO")
 	private Estacionamento estacionamento;
 
 

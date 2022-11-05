@@ -1,7 +1,6 @@
 package com.GS.models;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,22 +8,19 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name= "TB_ESTACIONAMENTO_GS")
+@SequenceGenerator(name="estacionamento", sequenceName = "TB_ESTACIONAMENTO", allocationSize = 1)
 public class Estacionamento implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(generator = "estacionamento", strategy=GenerationType.IDENTITY)
 	@Column (name="cd")
 	private long codigo;
 
 	@NotNull
 	@Column (name="local")
 	private String local;
-
-	@OneToMany
-	@JoinColumn(name="carros")
-	private List<Carro> carros;
 
 
 	public static long getSerialversionuid() {
@@ -47,12 +43,5 @@ public class Estacionamento implements Serializable{
 		this.local = local;
 	}
 
-	public List<Carro> getCarros() {
-		return carros;
-	}
-
-	public void setCarros(List<Carro> carros) {
-		this.carros = carros;
-	}
 	
 }
