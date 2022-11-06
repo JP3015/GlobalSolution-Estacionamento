@@ -1,17 +1,12 @@
 package com.GS.controllers;
 
-import java.time.LocalDate;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -60,7 +55,7 @@ public class EstacionamentoController {
 		ModelAndView mv = new ModelAndView("estacionamento/detalhesEstacionamento");
 		mv.addObject("estacionamento", estacionamento);
 		
-		Iterable<Carro> carro = cr.findByEstacionamento(estacionamento);
+		Iterable<Carro> carro = cr.findByEstacionamento(codigo);
 		mv.addObject("carro", carro);
 		
 		return mv;
@@ -80,8 +75,7 @@ public class EstacionamentoController {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos!");
 			return "redirect:/{codigo}";
 		}
-		Estacionamento estacionamento = er.findByCodigo(codigo);
-		carro.setEstacionamento(estacionamento);
+		carro.setEstacionamento(codigo);
 		cr.save(carro);
 		attributes.addFlashAttribute("mensagem", "Carro adicionado com sucesso!");
 		return "redirect:/{codigo}";
@@ -92,9 +86,38 @@ public class EstacionamentoController {
 		Carro carro = cr.findByPlaca(placa);
 		cr.delete(carro);
 		
-		Estacionamento Estacionamento = carro.getEstacionamento();
-		long codigoLong = Estacionamento.getCodigo();
+		long codigoLong = carro.getEstacionamento();
 		String codigo = "" + codigoLong;
 		return "redirect:/" + codigo;
 	}
+
+	@RequestMapping(value="/editar", method=RequestMethod.POST)
+	public String detalhesEstacionamentoPUT(@Valid Carro carro, RedirectAttributes attributes){
+		cr.save(carro);
+		attributes.addFlashAttribute("mensagem", "Carro editado com sucesso!");
+		long codigoLong = carro.getEstacionamento();
+		String codigo = "" + codigoLong;
+		return "redirect:/" + codigo;
+	}
+
+
+    @GetMapping("editar/{id}")
+    public String CarroPUT(@PathVariable (value = "id") Long id, Model model) {
+        model.addAttribute("carro", cr.findById(id).get());
+        return "/estacionamento/editCarro";
+    } 
+
+
+	@RequestMapping(value="/editarEstacionament", method=RequestMethod.POST)
+	public String Estacionamento(@Valid Estacionamento estacionamento, RedirectAttributes attributes){
+		er.save(estacionamento);
+		return "redirect:/estacionamento";
+	}
+
+
+    @GetMapping("/editarEstacionamento/{codigo}")
+    public String EstacionamentoPUT(@PathVariable (value = "codigo") Long codigo, Model model) {
+        model.addAttribute("estacionamento", er.findById(codigo).get());
+        return "/estacionamento/editEstacionamento";
+    } 
 }	

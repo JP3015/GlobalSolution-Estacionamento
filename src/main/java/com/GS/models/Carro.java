@@ -8,9 +8,14 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name= "TB_CARRO_GS")
+@SequenceGenerator(name="carro", sequenceName = "TB_CARRO", allocationSize = 1)
 public class Carro {
 
 	@Id
+	@GeneratedValue(generator = "carro", strategy=GenerationType.IDENTITY)
+	@Column (name="id")
+	private Long id;
+
 	@NotNull
 	@Column (name="placa")
 	private String placa;
@@ -28,11 +33,18 @@ public class Carro {
 	@Column (name="data_estacionamento")
 	private String dataEstacionamento;
 	
-	@ManyToOne
-	@JoinColumn(name="ESTACIONAMENTO_CODIGO")
-	private Estacionamento estacionamento;
+	@Column(name="ESTACIONAMENTO_CODIGO")
+	private Long estacionamento;
 
 
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getPlaca() {
 		return placa;
@@ -66,11 +78,11 @@ public class Carro {
 		this.dataEstacionamento = dataEstacionamento;
 	}
 	
-	public Estacionamento getEstacionamento() {
+	public Long getEstacionamento() {
 		return estacionamento;
 	}
 
-	public void setEstacionamento(Estacionamento estacionamento) {
+	public void setEstacionamento(Long estacionamento) {
 		this.estacionamento = estacionamento;
 	}
 

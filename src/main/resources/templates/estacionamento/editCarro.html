@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title>EstacionamentoWEB</title>
+</head>
+<body>
+		<th:block th:include="mensagemValidacao"></th:block>
+		<div class="container formCarro">
+		<form th:action="@{/editar}" method="post">
+			Placa: <input type="text" th:value="${carro.placa}" name="placa" placeholder="Placa do carro"/>
+			Nome: <input type="text" th:value="${carro.nomePessoa}" name="nomePessoa" placeholder="Coloque seu nome"/>
+			Modelo do Carro: <input type="text" th:value="${carro.modeloCarro}" name="modeloCarro" placeholder="Modelo do carro"/>
+			Data: <input type="date" th:value="${carro.dataEstacionamento}" name="dataEstacionamento"/>
+			<button class="waves-effect waves-light btn" type="submit">Editar</button>
+			<input type="hidden" th:value="${carro.id}" name="id"/>
+			<input type="hidden" th:value="${carro.estacionamento}" name="estacionamento"/>
+		</form>
+		</div>	
+</body>
+</html>
+
+

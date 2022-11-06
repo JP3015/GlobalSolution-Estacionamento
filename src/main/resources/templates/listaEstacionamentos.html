@@ -30,12 +30,14 @@
 			<tr>
 				<th>Local</th>
 				<th>Deletar</th>
+				<th>editar</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="estacionamento : ${estacionamento}">
 				<td><a th:href="${(#mvc.url('EC#detalhesEstacionamento').arg(0, estacionamento.codigo)).build()}"><span th:text="${estacionamento.local}"></span></a></td>
 				<td><a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('EC#deletarEstacionamento').arg(0, estacionamento.codigo)).build()}"><i class="material-icons left">delete</i></a></td>
+				<td><a class="waves-effect waves-light btn-small"  th:href="@{/editarEstacionamento/} + ${estacionamento.codigo}"><i class="material-icons left">edit</i></a></td>
 			</tr>
 		</tbody>
 	
