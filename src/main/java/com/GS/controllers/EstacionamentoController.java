@@ -115,7 +115,7 @@ public class EstacionamentoController {
 	}
 
 
-    @GetMapping("/editarEstacionamento/{codigo}")
+    @GetMapping("editarEstacionamento/{codigo}")
     public String EstacionamentoPUT(@PathVariable (value = "codigo") Long codigo, Model model) {
         model.addAttribute("estacionamento", er.findById(codigo).get());
         return "estacionamento/editEstacionamento";
