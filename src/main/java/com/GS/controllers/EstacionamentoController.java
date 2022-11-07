@@ -104,7 +104,7 @@ public class EstacionamentoController {
     @GetMapping("editar/{id}")
     public String CarroPUT(@PathVariable (value = "id") Long id, Model model) {
         model.addAttribute("carro", cr.findById(id).get());
-        return "/estacionamento/editCarro";
+        return "estacionamento/editCarro";
     } 
 
 
@@ -118,6 +118,6 @@ public class EstacionamentoController {
     @GetMapping("/editarEstacionamento/{codigo}")
     public String EstacionamentoPUT(@PathVariable (value = "codigo") Long codigo, Model model) {
         model.addAttribute("estacionamento", er.findById(codigo).get());
-        return "/estacionamento/editEstacionamento";
+        return "estacionamento/editEstacionamento";
     } 
 }	
