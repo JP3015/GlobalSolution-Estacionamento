@@ -9,7 +9,7 @@ import com.GS.GSApplication;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = GSApplication.class)
-public class EventosappApplicationTests {
+public class GSApplicationTests {
 
 	@Test
 	public void contextLoads() {
