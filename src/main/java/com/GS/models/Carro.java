@@ -2,7 +2,9 @@ package com.GS.models;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
+import net.bytebuddy.utility.nullability.NeverNull;
+
 
 
 
@@ -16,20 +18,20 @@ public class Carro {
 	@Column (name="id")
 	private Long id;
 
-	@NotNull
+	@NeverNull
 	@Column (name="placa")
 	private String placa;
 	
-	@NotNull
+	@NeverNull
 	@Column (name="nome_pessoa")
 	private String nomePessoa;
 
-	@NotNull
+	@NeverNull
 	@Column (name="modelo_carro")
 	private String modeloCarro;
 
 
-	@NotNull
+	@NeverNull
 	@Column (name="data_estacionamento")
 	private String dataEstacionamento;
 	

@@ -1,18 +1,14 @@
 package com.GS.Estacionamento;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import com.GS.GSApplication;
-
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = GSApplication.class)
-public class GSApplicationTests {
+@SpringBootTest
+class EpictaskapiApplicationTests {
 
 	@Test
-	public void contextLoads() {
+	void contextLoads() {
 	}
 
 }

@@ -3,7 +3,8 @@ package com.GS.models;
 import java.io.Serializable;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
+import net.bytebuddy.utility.nullability.NeverNull;
 
 
 @Entity
@@ -18,7 +19,7 @@ public class Estacionamento implements Serializable{
 	@Column (name="cd")
 	private long codigo;
 
-	@NotNull
+	@NeverNull
 	@Column (name="local")
 	private String local;
 

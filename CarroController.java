@@ -1,5 +1,7 @@
 package com.GS.controllers;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +17,7 @@ import com.GS.repository.CarroRepository;
 import com.GS.repository.EstacionamentoRepository;
 
 @Controller
-public class EstacionamentoController {
+public class CarroController {
 
 	@Autowired
 	private EstacionamentoRepository er;
@@ -23,31 +25,7 @@ public class EstacionamentoController {
 	@Autowired
 	private CarroRepository cr;
 	
-	@RequestMapping(value="/cadastrarEstacionamento", method=RequestMethod.GET)
-	public String form(){
-		return "estacionamento/formEstacionamento";
-	}
-	
-	@RequestMapping(value="/cadastrarEstacionamento", method=RequestMethod.POST)
-	public String form(@Validated Estacionamento estacionamento, BindingResult result, RedirectAttributes attributes){
-		if(result.hasErrors()){
-			attributes.addFlashAttribute("mensagem", "Verifique os campos!");
-			return "redirect:/cadastrarEstacionamento";
-		}
-		
-		er.save(estacionamento);
-		attributes.addFlashAttribute("mensagem", "Estacionamento cadastrado com sucesso!");
-		return "redirect:/cadastrarEstacionamento";
-	}
-	
-	@RequestMapping("/estacionamento")
-	public ModelAndView listaEstacionamentos(){
-		ModelAndView mv = new ModelAndView("listaEstacionamentos");
-		Iterable<Estacionamento> estacionamento = er.findAll();
-		mv.addObject("estacionamento", estacionamento);
-		return mv;
-	}
-	
+
 	@RequestMapping(value="/{codigo}", method=RequestMethod.GET)
 	public ModelAndView detalhesEstacionamento(@PathVariable("codigo") long codigo){
 		Estacionamento estacionamento = er.findByCodigo(codigo);
@@ -59,14 +37,14 @@ public class EstacionamentoController {
 		
 		return mv;
 	}
-	
-	@RequestMapping("/deletarEstacionamento")
-	public String deletarEstacionamento(long codigo){
-		Estacionamento estacionamento = er.findByCodigo(codigo);
-		er.delete(estacionamento);
-		return "redirect:/estacionamento";
-	}
 
+	@RequestMapping("/estacionamento")
+	public ModelAndView listaEstacionamentos(){
+		ModelAndView mv = new ModelAndView("listaEstacionamentos");
+		Iterable<Estacionamento> estacionamento = er.findAll();
+		mv.addObject("estacionamento", estacionamento);
+		return mv;
+	}
 	
 	@RequestMapping(value="/{codigo}", method=RequestMethod.POST)
 	public String detalhesEstacionamentoPost(@PathVariable("codigo") long codigo, @Validated Carro carro, BindingResult result, RedirectAttributes attributes){
@@ -106,17 +84,4 @@ public class EstacionamentoController {
         return "estacionamento/editCarro";
     } 
 
-
-	@RequestMapping(value="/editarEstacionament", method=RequestMethod.POST)
-	public String Estacionamento(@Validated Estacionamento estacionamento, RedirectAttributes attributes){
-		er.save(estacionamento);
-		return "redirect:/estacionamento";
-	}
-
-
-    @GetMapping("editarEstacionamento/{codigo}")
-    public String EstacionamentoPUT(@PathVariable (value = "codigo") Long codigo, Model model) {
-        model.addAttribute("estacionamento", er.findById(codigo).get());
-        return "estacionamento/editEstacionamento";
-    } 
 }	
